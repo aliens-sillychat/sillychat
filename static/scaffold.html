@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="index.js" defer></script>
+
+    <script type="text/javascript">
+        function onSubmitUser(event) {
+            event.preventDefault();
+            setUser(document.getElementById('username').value);
+
+            connect();
+        }
+
+        function onSubmitMessage(event) {
+            event.preventDefault();
+            sendMessage(document.getElementById('content').value);
+        }
+    </script>
+</head>
+<body>
+    <h1>WebSocket Chat</h1>
+
+    <h3>Connection Status: <span id="connection"></span></h3>
+
+    <form action="" onsubmit="onSubmitUser(event)">
+        <input type="text" id="username" />
+        <button type="submit">Set user</button>
+    </form>
+
+    <form action="" onsubmit="onSubmitMessage(event)">
+        <input type="text" id="content" autocomplete="off"/>
+        <button type="submit">Send</button>
+    </form>
+    <ul id='messages'>
+    </ul>
+</body>
+</html>

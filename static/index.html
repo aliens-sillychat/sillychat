@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oneill's Momentum</title>
+    <meta name="theme-color" content="#bc55fc" />
+    <title>Silly Chat</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/firework.css">
     <link rel="stylesheet" href="css/hearts-arise.css">
+    <link rel="stylesheet" href="css/shake.css">
 
     <script type="text/javascript">
         function templateJoin(username) {
@@ -42,9 +44,9 @@
             const me = getUser();
             return createElement(`
                 <li class="people_chat ${me.id === user.id ? 'send_by_me' : ''}">
-                    <img class="chat_avatar" src="/api/profiles/${user.id}" />
+                    <img class="chat_avatar avatar" src="/api/profiles/${user.id}" />
                     <div class="chat_user">
-                        <div class="chat_user_name">${user.name}</div>
+                        <div class="chat_user_name">${user.name || '저는 이름을 짓지 않았습니다'}</div>
                         <div class="chat_content">${message}</div>
                     </div>
                 </li>`);
@@ -155,9 +157,9 @@
                 <!-- 채팅 메세지가 표시되는 칸 -->
             </ul>
             <form id="page_chat_form" onsubmit="onSubmitMessage(); return false;">
-                <input id="message_content" type="text" placeholder="하고싶은 말 (왈왈)"
+                <input id="message_content" type="text" placeholder="하고싶은 말 (왈왈)" autocomplete="off"
                     onkeypress="onMessageKeyPress(event)"></textarea>
-                <input id="submit_message" type='submit' value="전송">
+                <button id="submit_message" type='submit'>전송</button>
             </form>
         </main>
 
@@ -167,17 +169,33 @@
         <main class="page_login">
             <header>💜 SillyChat 💜</header>
             <h3 id="profile_title">프로필</h3>
-            <img id="profile_image" />
+            <img id="profile_image" class="avatar" />
             <script type="text/javascript" defer>
-                setUser("anonymous");
-                const user = getUser();
+                function refreshProfileImage() {
+                    const user = getUser() ?? resetUser();
 
-                document.getElementById('profile_image').setAttribute('src', `/api/profiles/${user.id}`);
+                    document.getElementById('profile_image').setAttribute('src', `/api/profiles/${user.id}`);
+                }
+
+                function shakeProfileImage() {
+                    const $profileImage = document.getElementById('profile_image');
+                    $profileImage.classList.add('shake');
+                    $profileImage.style.animation = 'none';
+                    $profileImage.offsetHeight; /* trigger reflow */
+                    $profileImage.style.animation = null;
+                }
+
+                refreshProfileImage();
             </script>
+            <button class="renew" onclick="resetUser(); refreshProfileImage(); shakeProfileImage();">마음에 안드시나요?</button>
             <form id="page_login_form" onsubmit="onSubmitUser(); return false;">
-                <input id="write_name_here" type="text" placeholder="이름을 입력해주세요">
+                <input id="write_name_here" type="text" placeholder="이름을 입력해주세요" />
                 <button type="submit">준비되셨나요?</button>
             </form>
+
+            <script type="text/javascript" defer>
+                document.getElementById('write_name_here').value = getUser()?.name || '';
+            </script>
 
             <div class="background">
                 <ul class="hearts">

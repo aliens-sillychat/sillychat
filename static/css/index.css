@@ -22,8 +22,18 @@ body {
     justify-content: center;
 }
 
-input[disabled], button[disabled] {
+button {
+    cursor: pointer;
+}
+
+input[disabled],
+button[disabled] {
     cursor: not-allowed;
+}
+
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .pages {
@@ -62,6 +72,14 @@ main.page_login>header {
     font-weight: bold;
 }
 
+main.page_login>.renew {
+    border: none;
+    outline: none;
+    background: transparent;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
 main.page_login>.background {
     font-size: 2rem;
     white-space: nowrap;
@@ -81,7 +99,7 @@ main.page_login>.background * {
 #profile_image {
     width: 10rem;
     height: 10rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.4));
 }
 
@@ -152,7 +170,7 @@ main.page_chat>header {
     margin-right: 3rem;
 }
 
-.people_chat:not(.send_by_me) > .chat_user {
+.people_chat:not(.send_by_me)>.chat_user {
     align-items: start;
 }
 
@@ -161,7 +179,7 @@ main.page_chat>header {
     margin-left: 3rem;
 }
 
-.people_chat.send_by_me > .chat_user {
+.people_chat.send_by_me>.chat_user {
     align-items: end;
 }
 
@@ -264,7 +282,7 @@ main.page_chat .chat {
     outline: none;
 }
 
-#page_chat_form>input[type="submit"] {
+#page_chat_form>button[type="submit"] {
     font-size: 1rem;
     width: 5rem;
     margin-left: 1rem;

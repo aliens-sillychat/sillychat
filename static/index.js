@@ -32,7 +32,7 @@ function createElement(html) {
 /**
  * @param {string} username 
  */
-function setUser(username){
+function setUser(username = null){
     const user = getUser();
 
     localStorage.setItem('user', JSON.stringify({
@@ -48,6 +48,12 @@ function getUser() {
     const serializedUser = localStorage.getItem('user');
     if (serializedUser === null) return null;
     return JSON.parse(serializedUser);
+}
+
+function resetUser() {
+    localStorage.removeItem('user');
+    setUser();
+    return getUser();
 }
 
 

@@ -7,7 +7,7 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./static:/usr/share/nginx/www
+      - ./static:/usr/share/nginx/html
 
   backend:
     build: .

@@ -1,4 +1,5 @@
-const WS_ENDPOINT = 'ws://sillychat.kro.kr/api/ws';
+const WS_ENDPOINT =
+  (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/api/ws';
 
 /**
  * @typedef {{ id: string, name: string }} User
